@@ -10,8 +10,6 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 .env
-/Http/Controllers/Admin/*
 /Http/Controllers/Front/*
-/resources/views/admin/*
 /resources/views/front/*
 /public/front
