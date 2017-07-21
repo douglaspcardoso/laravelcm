@@ -14,4 +14,4 @@ npm-debug.log
 /Http/Controllers/Front/*
 /resources/views/admin/*
 /resources/views/front/*
-/public/*
+/public/front
