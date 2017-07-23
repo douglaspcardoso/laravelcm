@@ -55,4 +55,42 @@ class PageUniformesClientesController extends Controller
         return back();
     }
 
+    public function load()
+    {
+        $client = $this->service->getByPageId($this->page->id);
+
+        $clientsSorted = $client->details->sortBy('index');
+
+        return response()->json([
+            'details' => $clientsSorted->values()->all(),
+        ]);
+    }
+
+    public function upload(Request $request)
+    {
+        $client = $this->service->getByPageId($this->page->id);
+
+        $this->service->upload($request->all(), $client);
+
+        return response()->json();
+    }
+
+    public function delete($id)
+    {
+        $client = $this->service->getByPageId($this->page->id);
+
+        $clientDetail = $client->images->where('id', $id)->first();
+
+        $this->service->destroy($clientDetail);
+
+        return response()->json();
+    }
+
+    public function reorder(Request $request)
+    {
+        $this->service->reorder($request->data);
+
+        return response()->json();
+    }
+
 }

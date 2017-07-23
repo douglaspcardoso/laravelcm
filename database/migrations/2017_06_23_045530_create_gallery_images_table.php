@@ -23,6 +23,7 @@ class CreateGalleryImagesTable extends Migration
             $table->string('alt')->nullable();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
+            $table->integer('index')->nullable();
             $table->timestamps();
         });
     }

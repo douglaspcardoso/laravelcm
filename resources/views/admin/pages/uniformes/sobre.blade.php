@@ -29,8 +29,19 @@
                                     <h4>Descrição da Página</h4>
                                 </div>
                                 <div class="panel-body">
-                                    <input type="text" name="title" value="{{$about->title}}"/>
-                                    <textarea id="sobre-summernote-description" name="description">{{$about->description}}</textarea>
+                                    <div class="form-group">
+                                        <label for="title" class="col-md-2">Title</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="title" value="{{$about->title}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description" class="col-md-2">Description</label>
+                                        <div class="col-md-10">
+                                            <textarea id="sobre-summernote-description" name="description">{{$about->description}}</textarea>
+                                        </div>
+                                    </div>
+
                                     <input type="submit" class="btn btn-success pull-right" value="Salvar">
                                 </div>
                             </div>

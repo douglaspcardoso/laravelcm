@@ -33,6 +33,59 @@ class GalleryService {
         return $gallery;
     }
 
+    public function upload(array $data, Gallery $gallery)
+    {
+        if (array_key_exists('gallery_images', $data) && count($data['gallery_images']) > 0) {
+            $images = [];
+
+            foreach ($data['gallery_images'] as $image) {
+                $galleryImage = new GalleryImage();
+                $galleryImage->thumb = "placeholder";
+                $galleryImage->image = "placeholder";
+                $galleryImage->alt = "";
+                $galleryImage->title = "";
+                $galleryImage->description = "";
+                $galleryImage->index = 999999;
+
+                $saved = $gallery->images()->save($galleryImage);
+
+                $imageExt = $image->getClientOriginalExtension();
+                $imageName = Carbon::now()->timestamp . '-' . $saved->id . '.' . $imageExt;
+                $imageDest = '/front/images/produtos';
+
+                $destinationPath = public_path($imageDest . '/thumbnails');
+                $img = Image::make($image->getRealPath());
+                $img->resize(100, 100, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destinationPath . '/' . $imageName);
+                $img->destroy();
+
+                $destinationPath = public_path($imageDest);
+                $image->move($destinationPath, $imageName);
+
+                $saved->thumb = $imageDest . "/thumbnails/" . $imageName;
+                $saved->image = $imageDest . "/" . $imageName;
+
+                $images[] = $saved;
+                unset($saved);
+            }
+
+            $gallery->images()->saveMany($images);
+        }
+    }
+
+    public function reorder(array $stack)
+    {
+        $i = 0;
+        foreach ($stack as $data) {
+            $image = GalleryImage::find($data['key']);
+            $image->index = $i;
+            $image->save();
+
+            $i++;
+        }
+    }
+
     public function save(array $data, Gallery $gallery)
     {
         $gallery->title = $data['title'];

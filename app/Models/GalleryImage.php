@@ -14,6 +14,7 @@ class GalleryImage extends Model
         'alt',
         'title',
         'description',
+        'index',
     ];
 
     public function gallery()

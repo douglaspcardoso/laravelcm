@@ -35,16 +35,27 @@ class PageUniformesProdutosController extends Controller
         return view('admin.pages.uniformes.produtos', compact('gallery'));
     }
 
-    public function update(Request $request)
+    public function load()
     {
         $gallery = $this->service->getByPageId($this->page->id);
 
-        $this->service->save($request->all(), $gallery);
+        $imagesSorted = $gallery->images->sortBy('index');
 
-        return back()->with('success','Uniformes>sobre atualizado com sucesso.');
+        return response()->json([
+            'images' => $imagesSorted->values()->all(),
+        ]);
     }
 
-    public function destroy($id)
+    public function upload(Request $request)
+    {
+        $gallery = $this->service->getByPageId($this->page->id);
+
+        $this->service->upload($request->all(), $gallery);
+
+        return response()->json();
+    }
+
+    public function delete($id)
     {
         $gallery = $this->service->getByPageId($this->page->id);
 
@@ -52,7 +63,23 @@ class PageUniformesProdutosController extends Controller
 
         $this->service->destroy($image);
 
-        return back();
+        return response()->json();
+    }
+
+    public function reorder(Request $request)
+    {
+        $this->service->reorder($request->data);
+
+        return response()->json();
+    }
+
+    public function update(Request $request)
+    {
+        $gallery = $this->service->getByPageId($this->page->id);
+
+        $this->service->save($request->all(), $gallery);
+
+        return back()->with('success','Uniformes>sobre atualizado com sucesso.');
     }
 
 }

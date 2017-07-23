@@ -48,6 +48,7 @@ class ClientService {
                 $clientDetail->thumb = "placeholder";
                 $clientDetail->image = "placeholder";
                 $clientDetail->alt = "";
+                $clientDetail->index = 999999;
 
                 $saved = $client->details()->save($clientDetail);
 
@@ -86,6 +87,57 @@ class ClientService {
         }
 
         $clientDetail->delete();
+    }
+
+    public function upload(array $data, Client $client)
+    {
+        if (array_key_exists('gallery_images', $data) && count($data['gallery_images']) > 0) {
+            $details = [];
+
+            foreach ($data['gallery_images'] as $image) {
+                $clientDetail = new ClientDetail();
+                $clientDetail->thumb = "placeholder";
+                $clientDetail->image = "placeholder";
+                $clientDetail->alt = "";
+                $clientDetail->index = 999999;
+
+                $saved = $client->details()->save($clientDetail);
+
+                $imageExt = $image->getClientOriginalExtension();
+                $imageName = Carbon::now()->timestamp . '-' . $saved->id . '.' . $imageExt;
+                $imageDest = '/front/images/uniformes/clientes';
+
+                $destinationPath = public_path($imageDest . '/thumbnails');
+                $img = Image::make($image->getRealPath());
+                $img->resize(100, 100, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destinationPath . '/' . $imageName);
+                $img->destroy();
+
+                $destinationPath = public_path($imageDest);
+                $image->move($destinationPath, $imageName);
+
+                $saved->thumb = $imageDest . "/thumbnails/" . $imageName;
+                $saved->image = $imageDest . "/" . $imageName;
+
+                $details[] = $saved;
+                unset($saved);
+            }
+
+            $client->details()->saveMany($details);
+        }
+    }
+
+    public function reorder(array $stack)
+    {
+        $i = 0;
+        foreach ($stack as $data) {
+            $clientDetail = ClientDetail::find($data['key']);
+            $clientDetail->index = $i;
+            $clientDetail->save();
+
+            $i++;
+        }
     }
 
 }

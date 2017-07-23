@@ -12,6 +12,7 @@ class ClientDetail extends Model
         'thumb',
         'image',
         'alt',
+        'index',
     ];
 
     public function client()

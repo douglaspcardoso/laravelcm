@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>CM - Content Manager</title>
 
@@ -146,6 +147,7 @@
 <script src="{{asset('js/plugins/summernote/summernote.min.js')}}"></script>
 
 <!-- Bootstrap FileInput -->
+<script src="{{asset('js/plugins/bootstrap-fileinput/js/plugins/sortable.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/plugins/bootstrap-fileinput/js/fileinput.min.js')}}"></script>
 <script src="{{asset('js/plugins/bootstrap-fileinput/js/locales/pt-BR.js')}}"></script>
 

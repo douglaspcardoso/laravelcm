@@ -21,6 +21,7 @@ class CreateClientDetailsTable extends Migration
             $table->string('thumb');
             $table->string('image');
             $table->string('alt')->nullable();
+            $table->integer('index')->nullable();
             $table->timestamps();
         });
     }

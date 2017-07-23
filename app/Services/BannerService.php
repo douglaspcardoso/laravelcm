@@ -33,7 +33,7 @@ class BannerService {
                 $imageName = 'uniformes.png';
                 break;
             case 'content.camisaria.banner.update':
-                $imageName = 'home.png';
+                $imageName = 'camisaria.png';
                 break;
         }
 

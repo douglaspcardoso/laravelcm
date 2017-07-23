@@ -42,12 +42,19 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
     /*
      * Produtos
      */
+    Route::get('page/uniformes-produtos/load', 'PageUniformesProdutosController@load')->name('content.uniformes.produtos.load');
+    Route::post('page/uniformes-produtos/delete/{imageId}', 'PageUniformesProdutosController@delete')->name('content.uniformes.produtos.delete');
+    Route::post('page/uniformes-produtos', 'PageUniformesProdutosController@upload')->name('content.uniformes.produtos.upload');
+    Route::post('page/uniformes-produtos/reorder', 'PageUniformesProdutosController@reorder')->name('content.uniformes.produtos.reorder');
     Route::get('page/uniformes-produtos', 'PageUniformesProdutosController@index')->name('content.uniformes.produtos.index');
     Route::put('page/uniformes-produtos', 'PageUniformesProdutosController@update')->name('content.uniformes.produtos.update');
-    Route::get('page/uniformes-produtos/{imageId}', 'PageUniformesProdutosController@destroy')->name('content.uniformes.produtos.destroy');
+
+    Route::get('page/camisaria-produtos/load', 'PageCamisariaProdutosController@load')->name('content.camisaria.produtos.load');
+    Route::post('page/camisaria-produtos/delete/{imageId}', 'PageCamisariaProdutosController@delete')->name('content.camisaria.produtos.delete');
+    Route::post('page/camisaria-produtos', 'PageCamisariaProdutosController@upload')->name('content.camisaria.produtos.upload');
+    Route::post('page/camisaria-produtos/reorder', 'PageCamisariaProdutosController@reorder')->name('content.camisaria.produtos.reorder');
     Route::get('page/camisaria-produtos', 'PageCamisariaProdutosController@index')->name('content.camisaria.produtos.index');
     Route::put('page/camisaria-produtos', 'PageCamisariaProdutosController@update')->name('content.camisaria.produtos.update');
-    Route::get('page/camisaria-produtos/{imageId}', 'PageCamisariaProdutosController@destroy')->name('content.camisaria.produtos.destroy');
 
     /*
      * Serviço
@@ -68,6 +75,10 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
     /*
      * Clientes
      */
+    Route::get('page/uniformes-clientes/load', 'PageUniformesClientesController@load')->name('content.uniformes.clientes.load');
+    Route::post('page/uniformes-clientes/delete/{imageId}', 'PageUniformesClientesController@delete')->name('content.uniformes.clientes.delete');
+    Route::post('page/uniformes-clientes', 'PageUniformesClientesController@upload')->name('content.uniformes.clientes.upload');
+    Route::post('page/uniformes-clientes/reorder', 'PageUniformesClientesController@reorder')->name('content.uniformes.clientes.reorder');
     Route::get('page/uniformes-clientes', 'PageUniformesClientesController@index')->name('content.uniformes.clientes.index');
     Route::put('page/uniformes-clientes', 'PageUniformesClientesController@update')->name('content.uniformes.clientes.update');
     Route::get('page/uniformes-clientes/{imageId}', 'PageUniformesClientesController@destroy')->name('content.uniformes.clientes.destroy');
